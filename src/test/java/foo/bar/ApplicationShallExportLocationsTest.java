@@ -67,13 +67,23 @@ public class ApplicationShallExportLocationsTest {
     }
 
     @Test
-    public void shouldExportCVSRowForLocationTypeWithCommas() throws Exception {
+    public void shouldExportCVSRowForLocationWithCommas() throws Exception {
         locationsFound.add(new Location(1, "na,me", "lo,ca,tion",Position.latitudeLongitude(1.1, 2.2)));;
 
         Collection<String> processedLocations = sut.exportFor("Poznan");
 
         assertThat(processedLocations, Matchers.containsInAnyOrder("1,\"na,me\",\"lo,ca,tion\",1.1,2.2"));
     }
+
+    @Test
+    public void shouldExportCVSRowForLocationWithQuotes() throws Exception {
+        locationsFound.add(new Location(1, "n\"am\"e", "loc\"",Position.latitudeLongitude(1.1, 2.2)));;
+
+        Collection<String> processedLocations = sut.exportFor("Poznan");
+
+        assertThat(processedLocations, Matchers.containsInAnyOrder("1,\"n\"\"am\"\"e\",\"lo\"\"\",1.1,2.2"));
+    }
+
 
 
 
