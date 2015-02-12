@@ -56,6 +56,7 @@ public class ApplicationShallExportLocationsTest {
         assertThat(processedLocations, Matchers.containsInAnyOrder("1,location,1.1,2.2", "2,location2,3.3,4.4"));
     }
 
+
     @Test
     public void shouldCallLocationSourceWithCorrectLocationName() throws Exception {
         String locationName = "Poznan";
@@ -63,6 +64,16 @@ public class ApplicationShallExportLocationsTest {
 
         verify(locationSource).getLocationsFor(locationName);
     }
+
+    @Test
+    public void shouldExportCVSRowForLocationTypeWithCommas() throws Exception {
+        locationsFound.add(new Location(1,"lo,ca,tion",new Position(1.1, 2.2)));;
+
+        Collection<String> processedLocations = sut.exportFor("Poznan");
+
+        assertThat(processedLocations, Matchers.containsInAnyOrder("1,\"lo,ca,tion\",1.1,2.2"));
+    }
+
 
 
 }
