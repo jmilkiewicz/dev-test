@@ -4,7 +4,6 @@ package foo.bar;
 import foo.bar.foo.bar.domain.Location;
 import foo.bar.service.LocationSource;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedList;
 
@@ -27,7 +26,12 @@ public class Application {
     }
 
     private String map(Location location) {
-        return location.getId() + "," + "\"" +location.getType()+ "\","+ location.getPosition().getLatitude() +"," +
-                        location.getPosition().getLongitude();
+        return location.getId() + "," + escape(location.getType()) + ","+ location.getPosition()
+                .getLatitude() +"," +
+                location.getPosition().getLongitude();
+    }
+
+    private static String escape(String valueToEscape) {
+        return "\"" +valueToEscape + "\"";
     }
 }
