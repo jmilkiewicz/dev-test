@@ -4,43 +4,55 @@ import foo.bar.foo.bar.domain.Location;
 import foo.bar.foo.bar.domain.Position;
 import foo.bar.service.LocationSource;
 import org.hamcrest.Matchers;
+import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.when;
 
 public class ApplicationShallExportLocationsTest {
-
     private LocationSource locationSource = Mockito.mock(LocationSource.class);
+    private List<Location> locationsFound = new LinkedList<>();
+    private Application sut;
+
+    @Before
+    public void setUp() throws Exception {
+        sut = new Application(locationSource);
+        when(locationSource.getLocationsFor(anyString())).thenReturn(locationsFound);
+    }
 
     @Test
     public void shouldExportCVSRowForBerlinLocation() throws Exception {
-        Application application = new Application(locationSource);
-        Collection<Location> sampleLocations = new ArrayList(){{
-            add(new Location(1,"location",new Position(51.45775, 10.2384)));
-        }};
-        when(locationSource.getLocationsFor(anyString())).thenReturn(sampleLocations);
+        locationsFound.add(new Location(1,"location",new Position(51.45775, 10.2384)));
 
-        Collection<String> processedLocations = application.exportFor("Berlin");
+        Collection<String> processedLocations = sut.exportFor("Berlin");
 
         assertThat(processedLocations, Matchers.containsInAnyOrder("1,location,51.45775,10.2384"));
     }
 
     @Test
     public void shouldExportCVSRowForPoznanLocation() throws Exception {
-        Application application = new Application(locationSource);
-        Collection<Location> sampleLocations = new ArrayList(){{
-            add(new Location(1,"location",new Position(52.41747, 16.88414)));
-        }};
-        when(locationSource.getLocationsFor(anyString())).thenReturn(sampleLocations);
+        locationsFound.add(new Location(1,"location",new Position(52.41747, 16.88414)));;
 
-        Collection<String> processedLocations = application.exportFor("Poznan");
+        Collection<String> processedLocations = sut.exportFor("Poznan");
 
         assertThat(processedLocations, Matchers.containsInAnyOrder("1,location,52.41747,16.88414"));
+    }
+
+    @Test
+    public void shouldExportCVSRowForMultipleLocations() throws Exception {
+        locationsFound.add(new Location(1,"location",new Position(1.1, 2.2)));;
+        locationsFound.add(new Location(2,"location2",new Position(3.3, 4.4)));;
+
+        Collection<String> processedLocations = sut.exportFor("Poznan");
+
+        assertThat(processedLocations, Matchers.containsInAnyOrder("1,location,1.1,2.2", "2,location2,3.3,4.4"));
     }
 }
