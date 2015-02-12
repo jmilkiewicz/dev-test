@@ -18,7 +18,7 @@ public class Application {
 
     public Collection<String> exportFor(String locationName) {
         Collection<String> result = new LinkedList<>();
-        Collection<Location> locations = locationSource.getLocationsFor("sda");
+        Collection<Location> locations = locationSource.getLocationsFor(locationName);
         for (Location location : locations) {
             String csvRow = map(location);
             result.add(csvRow);
