@@ -12,6 +12,10 @@ public class Position {
         this.longitude = longitude;
     }
 
+    public static Position latitudeLongitude(double latitude, double longitude){
+        return new Position(latitude, longitude);
+    }
+
     public double getLatitude() {
         return latitude;
     }
