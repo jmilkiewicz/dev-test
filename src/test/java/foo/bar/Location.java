@@ -1,3 +1,5 @@
+package foo.bar;
+
 /**
  * Created by milus on 2/12/15.
  */
