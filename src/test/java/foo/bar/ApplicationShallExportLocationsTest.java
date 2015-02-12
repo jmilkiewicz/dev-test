@@ -12,9 +12,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
-
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class ApplicationShallExportLocationsTest {
@@ -55,4 +55,14 @@ public class ApplicationShallExportLocationsTest {
 
         assertThat(processedLocations, Matchers.containsInAnyOrder("1,location,1.1,2.2", "2,location2,3.3,4.4"));
     }
+
+    @Test
+    public void shouldCallLocationSourceWithCorrectLocationName() throws Exception {
+        String locationName = "Poznan";
+        Collection<String> processedLocations = sut.exportFor(locationName);
+
+        verify(locationSource).getLocationsFor(locationName);
+    }
+
+
 }
