@@ -9,6 +9,7 @@ import java.util.LinkedList;
 
 public class Application {
 
+    public static final String SEPARATOR = ",";
     private final LocationSource locationSource;
 
     public Application(LocationSource locationSource) {
@@ -26,9 +27,10 @@ public class Application {
     }
 
     private String map(Location location) {
-        return location.getId() + ","  +escape(location.getName())+"," + escape(location.getType()) + ","+ location
+        return location.getId() +SEPARATOR  +escape(location.getName())+SEPARATOR + escape(location.getType()) + SEPARATOR+
+                location
                 .getPosition()
-                .getLatitude() +"," +
+                .getLatitude() + SEPARATOR +
                 location.getPosition().getLongitude();
     }
 
