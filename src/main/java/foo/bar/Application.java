@@ -20,12 +20,14 @@ public class Application {
         Collection<String> result = new LinkedList<>();
         Collection<Location> locations = locationSource.getLocationsFor("sda");
         for (Location location : locations) {
-            String csv = location.getId() + "," + location.getType()+","+ location.getPosition().getLatitude() +"," +
-                    location.getPosition().getLongitude();
-            result.add(csv);
+            String csvRow = map(location);
+            result.add(csvRow);
         }
-
-
         return result;
+    }
+
+    private String map(Location location) {
+        return location.getId() + "," + location.getType()+","+ location.getPosition().getLatitude() +"," +
+                        location.getPosition().getLongitude();
     }
 }
