@@ -15,7 +15,7 @@ public class Application {
         this.locationSource = locationSource;
     }
 
-    public Collection<String> exportFor(String berlin) {
-        return Arrays.asList("1,someType,14.12,15.222");
+    public Collection<String> exportFor(String location) {
+        return Arrays.asList("1,location,51.45775,10.2384");
     }
 }
