@@ -27,7 +27,7 @@ public class Application {
     }
 
     private String map(Location location) {
-        return location.getId() + "," + location.getType()+","+ location.getPosition().getLatitude() +"," +
+        return location.getId() + "," + "\"" +location.getType()+ "\","+ location.getPosition().getLatitude() +"," +
                         location.getPosition().getLongitude();
     }
 }
