@@ -8,7 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
@@ -30,30 +29,31 @@ public class ApplicationShallExportLocationsTest {
 
     @Test
     public void shouldExportCVSRowForBerlinLocation() throws Exception {
-        locationsFound.add(new Location(1,"location",new Position(51.45775, 10.2384)));
+        locationsFound.add(new Location(1, "name", "location",new Position(51.45775, 10.2384)));
 
         Collection<String> processedLocations = sut.exportFor("Berlin");
 
-        assertThat(processedLocations, Matchers.containsInAnyOrder("1,\"location\",51.45775,10.2384"));
+        assertThat(processedLocations, Matchers.containsInAnyOrder("1,\"name\",\"location\",51.45775,10.2384"));
     }
 
     @Test
     public void shouldExportCVSRowForPoznanLocation() throws Exception {
-        locationsFound.add(new Location(1,"location",new Position(52.41747, 16.88414)));;
+        locationsFound.add(new Location(1, "somename", "location",new Position(52.41747, 16.88414)));;
 
         Collection<String> processedLocations = sut.exportFor("Poznan");
 
-        assertThat(processedLocations, Matchers.containsInAnyOrder("1,\"location\",52.41747,16.88414"));
+        assertThat(processedLocations, Matchers.containsInAnyOrder("1,\"somename\",\"location\",52.41747,16.88414"));
     }
 
     @Test
     public void shouldExportCVSRowForMultipleLocations() throws Exception {
-        locationsFound.add(new Location(1,"location",new Position(1.1, 2.2)));;
-        locationsFound.add(new Location(2,"location2",new Position(3.3, 4.4)));;
+        locationsFound.add(new Location(1, "name", "location",new Position(1.1, 2.2)));;
+        locationsFound.add(new Location(2, "name2", "location2",new Position(3.3, 4.4)));;
 
         Collection<String> processedLocations = sut.exportFor("Poznan");
 
-        assertThat(processedLocations, Matchers.containsInAnyOrder("1,\"location\",1.1,2.2", "2,\"location2\",3.3,4" +
+        assertThat(processedLocations, Matchers.containsInAnyOrder("1,\"name\",\"location\",1.1,2.2", "2," +
+                "\"name2\",\"location2\",3.3,4" +
                 ".4"));
     }
 
@@ -68,11 +68,11 @@ public class ApplicationShallExportLocationsTest {
 
     @Test
     public void shouldExportCVSRowForLocationTypeWithCommas() throws Exception {
-        locationsFound.add(new Location(1,"lo,ca,tion",new Position(1.1, 2.2)));;
+        locationsFound.add(new Location(1, "na,me", "lo,ca,tion",new Position(1.1, 2.2)));;
 
         Collection<String> processedLocations = sut.exportFor("Poznan");
 
-        assertThat(processedLocations, Matchers.containsInAnyOrder("1,\"lo,ca,tion\",1.1,2.2"));
+        assertThat(processedLocations, Matchers.containsInAnyOrder("1,\"na,me\",\"lo,ca,tion\",1.1,2.2"));
     }
 
 
