@@ -19,7 +19,7 @@ public class ApplicationShallExportLocationsTest {
     private LocationSource locationSource = Mockito.mock(LocationSource.class);
 
     @Test
-    public void shouldExportCVSRowForABerlinLocation() throws Exception {
+    public void shouldExportCVSRowForBerlinLocation() throws Exception {
         Application application = new Application(locationSource);
         Collection<Location> sampleLocations = new ArrayList(){{
             add(new Location(1,"location",new Position(51.45775, 10.2384)));
@@ -29,5 +29,18 @@ public class ApplicationShallExportLocationsTest {
         Collection<String> processedLocations = application.exportFor("Berlin");
 
         assertThat(processedLocations, Matchers.containsInAnyOrder("1,location,51.45775,10.2384"));
+    }
+
+    @Test
+    public void shouldExportCVSRowForPoznanLocation() throws Exception {
+        Application application = new Application(locationSource);
+        Collection<Location> sampleLocations = new ArrayList(){{
+            add(new Location(1,"location",new Position(52.41747, 16.88414)));
+        }};
+        when(locationSource.getLocationsFor(anyString())).thenReturn(sampleLocations);
+
+        Collection<String> processedLocations = application.exportFor("Poznan");
+
+        assertThat(processedLocations, Matchers.containsInAnyOrder("1,location,52.41747,16.88414"));
     }
 }
