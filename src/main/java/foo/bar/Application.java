@@ -3,6 +3,7 @@ package foo.bar;
 
 import foo.bar.service.LocationSource;
 
+import java.util.Arrays;
 import java.util.Collection;
 
 public class Application {
@@ -15,6 +16,6 @@ public class Application {
     }
 
     public Collection<String> exportFor(String berlin) {
-        return null;
+        return Arrays.asList("1,someType,14.12,15.222");
     }
 }
