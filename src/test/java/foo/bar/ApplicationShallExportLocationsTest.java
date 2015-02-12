@@ -81,7 +81,7 @@ public class ApplicationShallExportLocationsTest {
 
         Collection<String> processedLocations = sut.exportFor("Poznan");
 
-        assertThat(processedLocations, Matchers.containsInAnyOrder("1,\"n\"\"am\"\"e\",\"lo\"\"\",1.1,2.2"));
+        assertThat(processedLocations, Matchers.containsInAnyOrder("1,\"n\"\"am\"\"e\",\"loc\"\"\",1.1,2.2"));
     }
 
 
