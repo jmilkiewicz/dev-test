@@ -1,4 +1,4 @@
-package foo.bar;
+package foo.bar.foo.bar.domain;
 
 /**
  * Created by milus on 2/12/15.
