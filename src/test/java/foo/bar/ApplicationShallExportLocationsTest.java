@@ -34,7 +34,7 @@ public class ApplicationShallExportLocationsTest {
 
         Collection<String> processedLocations = sut.exportFor("Berlin");
 
-        assertThat(processedLocations, Matchers.containsInAnyOrder("1,location,51.45775,10.2384"));
+        assertThat(processedLocations, Matchers.containsInAnyOrder("1,\"location\",51.45775,10.2384"));
     }
 
     @Test
@@ -43,7 +43,7 @@ public class ApplicationShallExportLocationsTest {
 
         Collection<String> processedLocations = sut.exportFor("Poznan");
 
-        assertThat(processedLocations, Matchers.containsInAnyOrder("1,location,52.41747,16.88414"));
+        assertThat(processedLocations, Matchers.containsInAnyOrder("1,\"location\",52.41747,16.88414"));
     }
 
     @Test
@@ -53,7 +53,8 @@ public class ApplicationShallExportLocationsTest {
 
         Collection<String> processedLocations = sut.exportFor("Poznan");
 
-        assertThat(processedLocations, Matchers.containsInAnyOrder("1,location,1.1,2.2", "2,location2,3.3,4.4"));
+        assertThat(processedLocations, Matchers.containsInAnyOrder("1,\"location\",1.1,2.2", "2,\"location2\",3.3,4" +
+                ".4"));
     }
 
 
