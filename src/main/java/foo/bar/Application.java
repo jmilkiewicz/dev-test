@@ -35,6 +35,10 @@ public class Application {
     }
 
     private static String escape(String valueToEscape) {
-        return "\"" +valueToEscape + "\"";
+        return "\"" + escapeQuotesWithQuotes(valueToEscape) + "\"";
+    }
+
+    private static String escapeQuotesWithQuotes(String valueToEscape) {
+        return valueToEscape.replaceAll("\"","\"\"");
     }
 }
