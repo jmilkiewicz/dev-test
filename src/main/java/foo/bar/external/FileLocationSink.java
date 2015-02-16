@@ -5,7 +5,7 @@ import foo.bar.service.LocationSink;
 
 import java.io.*;
 import java.util.Collection;
-
+//TODO Maybe add folder as constructor parameter
 public class FileLocationSink implements LocationSink{
     @Override
     public void storeLocations(String locationName, Collection<String> exportOutput) {

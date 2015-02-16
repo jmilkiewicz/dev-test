@@ -24,6 +24,8 @@ public class ApplicationShallExportLocationsTest {
     private List<Location> locationsFound = new LinkedList<>();
     private Application sut;
 
+    //TODO maybe can use ParametrizedTests of Junit
+
     @Before
     public void setUp() throws Exception {
         sut = new Application(locationSource, locationSink);
