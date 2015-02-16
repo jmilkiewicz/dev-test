@@ -14,12 +14,13 @@ import java.util.List;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class FileLocationSinkTest {
-    public static final String SAMPLE_FILE_NAME = "aaa.csv";
+    public static final String SAMPLE_LOCATION = "location1";
+    public static final String OUTPUT_FILE_NAME = SAMPLE_LOCATION + ".csv";
     private FileLocationSink sut = new FileLocationSink();
 
     @Before
     public void removeSampleFileName() throws Exception {
-        File file = new File(SAMPLE_FILE_NAME);
+        File file = new File(OUTPUT_FILE_NAME);
         if(file.exists()){
             file.delete();
         }
@@ -29,9 +30,9 @@ public class FileLocationSinkTest {
     public void shallSaveDataToAFile() throws IOException {
         String[] fileContent = {"a1,a2", "b1,b2", "c1,c2"};
 
-        sut.storeLocations(SAMPLE_FILE_NAME, Arrays.asList(fileContent));
+        sut.storeLocations(SAMPLE_LOCATION, Arrays.asList(fileContent));
 
-        assertThat(readFileContent(SAMPLE_FILE_NAME), Matchers.contains(fileContent));
+        assertThat(readFileContent(OUTPUT_FILE_NAME), Matchers.contains(fileContent));
     }
 
     private List<String> readFileContent(String fileName) throws IOException {
