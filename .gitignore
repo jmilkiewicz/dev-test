@@ -16,6 +16,7 @@ target
 *.mul
 # Misc
 *.log
+*.csv
 .DS_Store
 MANIFEST.MF
 ConfigRoot
