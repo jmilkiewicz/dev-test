@@ -11,7 +11,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.emptyCollectionOf;
 import static org.hamcrest.core.IsNot.not;
 
-public class GoEuroAPITest {
+public class HttpLocationSourceTest {
     private HttpLocationSource sut = new HttpLocationSource();
 
     @Test
