@@ -13,7 +13,6 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.verify;
@@ -37,36 +36,34 @@ public class ApplicationShallExportLocationsTest {
 
         sut.exportFor("Berlin");
 
-        verify(locationSink).storeLocations(eq("Berlin"), (Collection<String>) org.mockito.Matchers.argThat(Matchers
-                .containsInAnyOrder("1,\"name\",\"location\",51.45775,10.2384")));
+        verify(locationSink).storeLocations(eq("Berlin"), containsInAnyOrder("1,\"name\",\"location\",51.45775,10.2384"));
+    }
+
+    private Collection<String> containsInAnyOrder(String... cvsRows) {
+        return (Collection<String>) org.mockito.Matchers.argThat(Matchers
+                .containsInAnyOrder(cvsRows));
     }
 
 
     @Test
     public void shouldExportCVSRowForPoznanLocation() throws Exception {
         locationsFound.add(new Location(1, "somename", "location", Position.latitudeLongitude(52.41747, 16.88414)));
-        ;
 
         sut.exportFor("Poznan");
 
-        verify(locationSink).storeLocations(eq("Poznan"), (Collection<String>) org.mockito.Matchers.argThat(
-                Matchers.containsInAnyOrder("1,\"somename\",\"location\",52.41747,16.88414")));
-
+        verify(locationSink).storeLocations(eq("Poznan"), containsInAnyOrder("1,\"somename\",\"location\",52.41747,16.88414"));
     }
 
     @Test
     public void shouldExportCVSRowForMultipleLocations() throws Exception {
         locationsFound.add(new Location(1, "name", "location", Position.latitudeLongitude(1.1, 2.2)));
-        ;
         locationsFound.add(new Location(2, "name2", "location2", Position.latitudeLongitude(3.3, 4.4)));
-        ;
 
         sut.exportFor("Poznan");
 
-        verify(locationSink).storeLocations(eq("Poznan"), (Collection<String>) org.mockito.Matchers.argThat(
-                Matchers.containsInAnyOrder("1,\"name\",\"location\",1.1,2.2", "2," +
-                        "\"name2\",\"location2\",3.3,4" +
-                        ".4")));
+        verify(locationSink).storeLocations(eq("Poznan"), containsInAnyOrder("1,\"name\",\"location\",1.1,2.2", "2," +
+                "\"name2\",\"location2\",3.3,4" +
+                ".4"));
     }
 
 
@@ -81,25 +78,19 @@ public class ApplicationShallExportLocationsTest {
     @Test
     public void shouldExportCVSRowForLocationWithCommas() throws Exception {
         locationsFound.add(new Location(1, "na,me", "lo,ca,tion", Position.latitudeLongitude(1.1, 2.2)));
-        ;
 
         sut.exportFor("Poznan");
 
-        verify(locationSink).storeLocations(eq("Poznan"), (Collection<String>) org.mockito.Matchers.argThat(
-                Matchers.containsInAnyOrder("1,\"na,me\",\"lo,ca,tion\",1.1,2.2")));
-
+        verify(locationSink).storeLocations(eq("Poznan"), containsInAnyOrder("1,\"na,me\",\"lo,ca,tion\",1.1,2.2"));
     }
 
     @Test
     public void shouldExportCVSRowForLocationWithQuotes() throws Exception {
         locationsFound.add(new Location(1, "n\"am\"e", "loc\"", Position.latitudeLongitude(1.1, 2.2)));
-        ;
 
         sut.exportFor("Poznan");
 
-        verify(locationSink).storeLocations(eq("Poznan"), (Collection<String>) org.mockito.Matchers.argThat(
-                Matchers.containsInAnyOrder("1,\"n\"\"am\"\"e\",\"loc\"\"\",1.1,2.2")));
-
+        verify(locationSink).storeLocations(eq("Poznan"), containsInAnyOrder("1,\"n\"\"am\"\"e\",\"loc\"\"\",1.1,2.2"));
     }
 
 
