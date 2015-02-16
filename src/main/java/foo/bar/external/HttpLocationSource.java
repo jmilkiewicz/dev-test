@@ -24,17 +24,20 @@ public class HttpLocationSource implements LocationSource {
 
     @Override
     public Collection<Location> getLocationsFor(String location) {
-
         try {
-            String fullURL = String.format(urlFormat,location);
+            String fullURL = String.format(urlFormat, location);
             URL url = new URL(fullURL);
-            InputStream inputStream = url.openStream();
-            InputStreamReader inputStreamReader = new InputStreamReader(inputStream,
-                    Charset.forName
-                            ("UTF-8"));
-            Gson gson = new Gson();
-            Type collectionType = new TypeToken<Collection<Location>>(){}.getType();
-            return gson.fromJson(inputStreamReader, collectionType);
+            try (InputStream inputStream = url.openStream();
+                 InputStreamReader inputStreamReader = new InputStreamReader(inputStream,
+                         Charset.forName
+                                 ("UTF-8"));
+
+            ) {
+                Gson gson = new Gson();
+                Type collectionType = new TypeToken<Collection<Location>>() {
+                }.getType();
+                return gson.fromJson(inputStreamReader, collectionType);
+            }
         } catch (MalformedURLException e) {
             throw new RuntimeException("unable to parse URL", e);
         } catch (IOException e) {
