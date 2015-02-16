@@ -16,12 +16,18 @@ import java.util.Collection;
 
 
 public class HttpLocationSource implements LocationSource {
+    private final String urlFormat;
+
+    public HttpLocationSource(String urlPrefix) {
+        this.urlFormat = urlPrefix + "%s";
+    }
+
     @Override
     public Collection<Location> getLocationsFor(String location) {
 
         try {
-            //TODO use string format instead of lame string concatenation
-            URL url = new URL("http://api.goeuro.com/api/v2/position/suggest/en/"+ location);
+            String fullURL = String.format(urlFormat,location);
+            URL url = new URL(fullURL);
             InputStream inputStream = url.openStream();
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream,
                     Charset.forName

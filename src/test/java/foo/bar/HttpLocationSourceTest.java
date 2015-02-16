@@ -12,7 +12,7 @@ import static org.hamcrest.Matchers.emptyCollectionOf;
 import static org.hamcrest.core.IsNot.not;
 
 public class HttpLocationSourceTest {
-    private HttpLocationSource sut = new HttpLocationSource();
+    private HttpLocationSource sut = new HttpLocationSource("http://api.goeuro.com/api/v2/position/suggest/en/");
 
     @Test
     public void shallReturnValidCollectionOfLocationsForUSA() throws Exception {
