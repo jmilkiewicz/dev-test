@@ -1,5 +1,6 @@
 Java Developer Test
 ===================
+NOTE: Not created by me !
 
 The purpose of this test is to see how you approach a problem and what your solutions look like. The requirements for this test are simple and
 should be straightforward to grasp. That said:
